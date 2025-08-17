@@ -7,57 +7,58 @@
 
 @layer base {
   :root {
-    /* Core Background & Surface Colors */
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --surface: 240 10% 7%;
-    --surface-light: 240 10% 12%;
+    /* Dark Theme - Core Background & Surface Colors */
+    --background: 222 47% 11%;
+    --background-gradient: linear-gradient(135deg, hsl(222, 47%, 11%), hsl(215, 25%, 17%));
+    --foreground: 220 14% 98%;
+    --surface: 215 25% 17%;
+    --surface-light: 215 25% 20%;
     
     /* Card & Component Colors */
-    --card: 240 10% 7%;
-    --card-foreground: 0 0% 98%;
-    --card-glass: 240 10% 7% / 0.6;
+    --card: 255 255 255 / 0.05;
+    --card-foreground: 220 14% 98%;
+    --card-glass: 255 255 255 / 0.05;
     
     /* Glass morphism effect */
     --glass-bg: 255 255 255 / 0.05;
     --glass-border: 255 255 255 / 0.1;
     
-    /* Primary Brand Colors - Vibrant Purple/Blue */
-    --primary: 250 84% 54%;
-    --primary-dark: 250 84% 44%;
-    --primary-light: 250 84% 64%;
-    --primary-foreground: 0 0% 98%;
+    /* Primary Brand Colors - Electric Indigo */
+    --primary: 239 84% 67%;
+    --primary-dark: 239 84% 57%;
+    --primary-light: 239 84% 77%;
+    --primary-foreground: 220 14% 98%;
     
-    /* Secondary Colors - Electric Blue */
-    --secondary: 200 98% 50%;
-    --secondary-dark: 200 98% 40%;
-    --secondary-light: 200 98% 60%;
-    --secondary-foreground: 240 10% 3.9%;
+    /* Secondary Colors - Teal */
+    --secondary: 173 80% 40%;
+    --secondary-dark: 173 80% 30%;
+    --secondary-light: 173 80% 50%;
+    --secondary-foreground: 220 14% 98%;
     
-    /* Accent Colors - Neon Green */
-    --accent: 142 84% 55%;
-    --accent-dark: 142 84% 45%;
-    --accent-light: 142 84% 65%;
-    --accent-foreground: 240 10% 3.9%;
+    /* Accent Colors - Amber Glow */
+    --accent: 51 95% 53%;
+    --accent-dark: 51 95% 43%;
+    --accent-light: 51 95% 63%;
+    --accent-foreground: 222 47% 11%;
     
     /* Text & Muted Colors */
-    --muted: 240 5% 64%;
-    --muted-foreground: 240 5% 64%;
-    --text-subtle: 240 5% 84%;
+    --muted: 214 15% 77%;
+    --muted-foreground: 214 15% 77%;
+    --text-subtle: 214 15% 77%;
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    /* Button Gradients */
+    --gradient-primary: linear-gradient(90deg, #6366F1, #14B8A6, #FACC15, #F472B6);
     --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)));
     --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));
-    --gradient-purple-blue: linear-gradient(135deg, #8B5CF6, #3B82F6);
-    --gradient-blue-cyan: linear-gradient(135deg, #3B82F6, #06B6D4);
-    --gradient-purple-pink: linear-gradient(135deg, #8B5CF6, #EC4899);
+    --gradient-purple-blue: linear-gradient(135deg, #6366F1, #14B8A6);
+    --gradient-blue-cyan: linear-gradient(135deg, #14B8A6, #FACC15);
+    --gradient-purple-pink: linear-gradient(135deg, #6366F1, #F472B6);
     
-    /* Glow Effects */
-    --glow-primary: 0 0 30px hsl(var(--primary) / 0.5);
-    --glow-secondary: 0 0 30px hsl(var(--secondary) / 0.5);
-    --glow-accent: 0 0 30px hsl(var(--accent) / 0.5);
-    --glow-soft: 0 0 20px hsl(var(--primary) / 0.3);
+    /* Neon Glow Effects */
+    --glow-primary: 0 0 30px hsl(var(--primary) / 0.6), 0 0 60px hsl(var(--primary) / 0.4);
+    --glow-secondary: 0 0 30px hsl(var(--secondary) / 0.6), 0 0 60px hsl(var(--secondary) / 0.4);
+    --glow-accent: 0 0 30px hsl(var(--accent) / 0.8), 0 0 60px hsl(var(--accent) / 0.6);
+    --glow-soft: 0 0 20px hsl(var(--primary) / 0.4);
     
     /* Interactive States */
     --hover-overlay: 255 255 255 / 0.05;
@@ -90,31 +91,74 @@
   }
 
   .light {
-    /* Light Mode Colors */
-    --background: 0 0% 98%;
-    --foreground: 240 10% 3.9%;
-    --surface: 0 0% 95%;
-    --surface-light: 0 0% 92%;
+    /* Light Theme - Core Background & Surface Colors */
+    --background: 220 14% 98%;
+    --background-gradient: linear-gradient(135deg, hsl(220, 14%, 98%), hsl(187, 71%, 93%));
+    --foreground: 222 47% 11%;
+    --surface: 0 0% 100%;
+    --surface-light: 0 0% 98%;
     
+    /* Card & Component Colors */
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --card-glass: 255 255 255 / 0.8;
+    --card-foreground: 222 47% 11%;
+    --card-glass: 255 255 255 / 0.9;
     
-    --glass-bg: 255 255 255 / 0.6;
+    /* Glass morphism effect */
+    --glass-bg: 255 255 255 / 0.8;
     --glass-border: 0 0% 0% / 0.1;
     
-    --muted: 240 5% 46%;
-    --muted-foreground: 240 5% 46%;
-    --text-subtle: 240 5% 26%;
+    /* Primary Brand Colors - Indigo */
+    --primary: 243 78% 58%;
+    --primary-dark: 243 78% 48%;
+    --primary-light: 243 78% 68%;
+    --primary-foreground: 0 0% 100%;
     
-    --border: 240 5% 84%;
-    --input: 240 5% 96%;
-    --input-focus: 240 5% 100%;
+    /* Secondary Colors - Cyan */
+    --secondary: 188 96% 43%;
+    --secondary-dark: 188 96% 33%;
+    --secondary-light: 188 96% 53%;
+    --secondary-foreground: 0 0% 100%;
     
+    /* Accent Colors - Green */
+    --accent: 160 84% 39%;
+    --accent-dark: 160 84% 29%;
+    --accent-light: 160 84% 49%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Text & Muted Colors */
+    --muted: 215 16% 29%;
+    --muted-foreground: 215 16% 29%;
+    --text-subtle: 215 16% 29%;
+    
+    /* Button Gradients */
+    --gradient-primary: linear-gradient(90deg, #4F46E5, #06B6D4, #10B981, #F59E0B);
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));
+    --gradient-purple-blue: linear-gradient(135deg, #4F46E5, #06B6D4);
+    --gradient-blue-cyan: linear-gradient(135deg, #06B6D4, #10B981);
+    --gradient-purple-pink: linear-gradient(135deg, #4F46E5, #F59E0B);
+    
+    /* Soft Glow Effects */
+    --glow-primary: 0 0 20px hsl(var(--primary) / 0.3), 0 0 40px hsl(var(--primary) / 0.2);
+    --glow-secondary: 0 0 20px hsl(var(--secondary) / 0.3), 0 0 40px hsl(var(--secondary) / 0.2);
+    --glow-accent: 0 0 20px hsl(var(--accent) / 0.3), 0 0 40px hsl(var(--accent) / 0.2);
+    --glow-soft: 0 0 15px hsl(var(--primary) / 0.2);
+    
+    /* Interactive States */
     --hover-overlay: 0 0% 0% / 0.05;
-    --shadow-soft: 0 4px 6px -1px hsl(0 0% 0% / 0.1);
-    --shadow-medium: 0 10px 15px -3px hsl(0 0% 0% / 0.1);
-    --shadow-large: 0 25px 50px -12px hsl(0 0% 0% / 0.25);
+    --focus-ring: 243 78% 58% / 0.5;
+    
+    /* Borders & Inputs */
+    --border: 214 15% 84%;
+    --input: 220 14% 96%;
+    --input-focus: 0 0% 100%;
+    --ring: 243 78% 58%;
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.06);
+    --shadow-medium: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -2px hsl(0 0% 0% / 0.05);
+    --shadow-large: 0 25px 50px -12px hsl(0 0% 0% / 0.25), 0 10px 20px -8px hsl(0 0% 0% / 0.1);
+    --shadow-glow: 0 0 30px hsl(var(--primary) / 0.2);
   }
 }
 
@@ -128,8 +172,10 @@
   }
 
   body {
-    @apply bg-background text-foreground font-inter;
+    @apply text-foreground font-inter;
+    background: var(--background-gradient);
     background-attachment: fixed;
+    min-height: 100vh;
   }
 }
 
