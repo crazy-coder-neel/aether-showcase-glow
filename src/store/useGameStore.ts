@@ -8,6 +8,7 @@ export interface LevelNode {
   description?: string;
   problemUrl?: string;
   qrPassword?: string;
+  parentIds?: string[];
 }
 
 export interface LeaderboardEntry {
@@ -40,17 +41,22 @@ interface GameState {
   completeLevel: (id: string) => void;
 }
 
+// Hierarchical tree: 1 root → 2 children → branches out
 const mockLevels: LevelNode[] = [
-  { id: '1', label: 'Level 1', type: 'cp', status: 'completed', description: 'Two Sum - Find two numbers that add up to target', problemUrl: 'https://hackerrank.com' },
-  { id: '2', label: 'Level 2', type: 'qr', status: 'completed', description: 'Scan the QR code at the library entrance', qrPassword: 'CYBER2024' },
-  { id: '3', label: 'Level 3', type: 'cp', status: 'current', description: 'Binary Search - Find element in sorted array', problemUrl: 'https://hackerrank.com' },
-  { id: '4', label: 'Level 4', type: 'qr', status: 'locked', description: 'Find the QR code hidden in the CS lab', qrPassword: 'NEON42' },
-  { id: '5', label: 'Level 5', type: 'cp', status: 'locked', description: 'Graph Traversal - BFS shortest path', problemUrl: 'https://hackerrank.com' },
-  { id: '6', label: 'Level 6', type: 'qr', status: 'locked', description: 'Scan QR at the rooftop observatory', qrPassword: 'HACK99' },
-  { id: '7', label: 'Level 7', type: 'cp', status: 'locked', description: 'Dynamic Programming - Longest subsequence', problemUrl: 'https://hackerrank.com' },
-  { id: '8', label: 'Level 8', type: 'qr', status: 'locked', description: 'Hidden QR in the main auditorium', qrPassword: 'GLITCH' },
-  { id: '9', label: 'Level 9', type: 'cp', status: 'locked', description: 'Segment Tree - Range query optimization', problemUrl: 'https://hackerrank.com' },
-  { id: '10', label: 'Level 10', type: 'qr', status: 'locked', description: 'Final QR - The grand reveal', qrPassword: 'WINNER' },
+  // Tier 0 (root)
+  { id: '1', label: 'GENESIS', type: 'cp', status: 'completed', description: 'Two Sum - Find two numbers that add up to target', problemUrl: 'https://hackerrank.com', parentIds: [] },
+  // Tier 1 (2 nodes)
+  { id: '2', label: 'CIPHER', type: 'qr', status: 'completed', description: 'Scan the QR code at the library entrance', qrPassword: 'CYBER2024', parentIds: ['1'] },
+  { id: '3', label: 'VECTOR', type: 'cp', status: 'current', description: 'Binary Search - Find element in sorted array', problemUrl: 'https://hackerrank.com', parentIds: ['1'] },
+  // Tier 2 (3 nodes)
+  { id: '4', label: 'MATRIX', type: 'qr', status: 'locked', description: 'Find the QR code hidden in the CS lab', qrPassword: 'NEON42', parentIds: ['2'] },
+  { id: '5', label: 'NEXUS', type: 'cp', status: 'locked', description: 'Graph Traversal - BFS shortest path', problemUrl: 'https://hackerrank.com', parentIds: ['2', '3'] },
+  { id: '6', label: 'PRISM', type: 'qr', status: 'locked', description: 'Scan QR at the rooftop observatory', qrPassword: 'HACK99', parentIds: ['3'] },
+  // Tier 3 (4 nodes)
+  { id: '7', label: 'PHANTOM', type: 'cp', status: 'locked', description: 'Dynamic Programming - Longest subsequence', problemUrl: 'https://hackerrank.com', parentIds: ['4'] },
+  { id: '8', label: 'ECLIPSE', type: 'qr', status: 'locked', description: 'Hidden QR in the main auditorium', qrPassword: 'GLITCH', parentIds: ['4', '5'] },
+  { id: '9', label: 'VORTEX', type: 'cp', status: 'locked', description: 'Segment Tree - Range query optimization', problemUrl: 'https://hackerrank.com', parentIds: ['5', '6'] },
+  { id: '10', label: 'OMEGA', type: 'qr', status: 'locked', description: 'Final QR - The grand reveal', qrPassword: 'WINNER', parentIds: ['6'] },
 ];
 
 const mockLeaderboard: LeaderboardEntry[] = [
@@ -90,11 +96,18 @@ export const useGameStore = create<GameState>((set) => ({
         if (l.id === id) return { ...l, status: 'completed' as const };
         return l;
       });
-      const nextIdx = levels.findIndex((l) => l.id === id) + 1;
-      if (nextIdx < levels.length && levels[nextIdx].status === 'locked') {
-        levels[nextIdx] = { ...levels[nextIdx], status: 'current' };
-      }
-      const completed = levels.filter((l) => l.status === 'completed').length;
-      return { levels, user: { ...s.user, levelsCompleted: completed, score: completed * 1000 + 200 } };
+      // Unlock children whose all parents are completed
+      const updated = levels.map((l) => {
+        if (l.status !== 'locked') return l;
+        const parents = l.parentIds || [];
+        const allParentsDone = parents.length > 0 && parents.every(pid => {
+          const parent = levels.find(p => p.id === pid);
+          return parent?.status === 'completed';
+        });
+        if (allParentsDone) return { ...l, status: 'current' as const };
+        return l;
+      });
+      const completed = updated.filter((l) => l.status === 'completed').length;
+      return { levels: updated, user: { ...s.user, levelsCompleted: completed, score: completed * 1000 + 200 } };
     }),
 }));
